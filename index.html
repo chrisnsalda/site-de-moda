@@ -1,156 +1,195 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Meu Site</title>
+    <title>VOGA | Moda & Estilo</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo">MeuSite</div>
+    <!-- CABEÇALHO -->
 
-            <button class="menu-button" id="menuButton">☰</button>
+    <header class="header">
 
-            <ul class="menu" id="menu">
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
+        <div class="logo">
+            VOGA
+        </div>
 
-            <button class="theme-button" id="themeButton">
-                🌙
-            </button>
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#produtos">Produtos</a>
+            <a href="#sobre">Sobre</a>
         </nav>
+
+        <button class="cart-button" id="openCart">
+            🛒 Carrinho
+            <span id="cartCount">0</span>
+        </button>
+
     </header>
+
+
+    <!-- BANNER -->
+
+    <section class="hero" id="inicio">
+
+        <div class="hero-content">
+
+            <p class="subtitle">
+                NOVA COLEÇÃO
+            </p>
+
+            <h1>
+                Vista seu estilo.
+            </h1>
+
+            <p>
+                Descubra peças modernas e elegantes
+                para transformar seu visual.
+            </p>
+
+            <a href="#produtos" class="hero-button">
+                Comprar agora
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUTOS -->
 
     <main>
 
-        <!-- INÍCIO -->
-        <section id="inicio" class="hero">
-            <div class="hero-content">
-                <h1>Bem-vindo ao meu site</h1>
+        <section class="products-section" id="produtos">
 
-                <p>
-                    Um site moderno, responsivo e funcional
-                    desenvolvido com HTML, CSS e JavaScript.
-                </p>
+            <div class="section-title">
 
-                <a href="#contato" class="button">
-                    Entre em contato
-                </a>
+                <p>COLEÇÃO VOGA</p>
+
+                <h2>
+                    Destaques da temporada
+                </h2>
+
             </div>
+
+
+            <div class="products-grid" id="productsGrid">
+
+                <!-- Os produtos serão inseridos pelo JavaScript -->
+
+            </div>
+
         </section>
+
 
         <!-- SOBRE -->
-        <section id="sobre" class="section">
-            <h2>Sobre nós</h2>
 
-            <p>
-                Este é um exemplo de site desenvolvido utilizando
-                tecnologias web básicas. O projeto pode ser
-                personalizado para empresas, lojas, portfólios,
-                projetos escolares e muito mais.
-            </p>
-        </section>
+        <section class="about" id="sobre">
 
-        <!-- SERVIÇOS -->
-        <section id="servicos" class="section services">
+            <div>
 
-            <h2>Nossos serviços</h2>
+                <p class="subtitle">
+                    SOBRE A VOGA
+                </p>
 
-            <div class="cards">
+                <h2>
+                    Moda que combina com você.
+                </h2>
 
-                <div class="card">
-                    <div class="icon">💻</div>
-                    <h3>Desenvolvimento</h3>
-                    <p>
-                        Desenvolvimento de sites modernos
-                        e responsivos.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="icon">🎨</div>
-                    <h3>Design</h3>
-                    <p>
-                        Interfaces bonitas, simples e fáceis
-                        de utilizar.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="icon">⚡</div>
-                    <h3>Performance</h3>
-                    <p>
-                        Código otimizado para proporcionar
-                        uma boa experiência.
-                    </p>
-                </div>
+                <p>
+                    A VOGA nasceu para trazer peças modernas,
+                    confortáveis e versáteis para quem gosta
+                    de expressar sua personalidade através da moda.
+                </p>
 
             </div>
-        </section>
-
-        <!-- CONTATO -->
-        <section id="contato" class="section contact">
-
-            <h2>Entre em contato</h2>
-
-            <form id="contactForm">
-
-                <div class="form-group">
-                    <label for="name">Nome</label>
-                    <input
-                        type="text"
-                        id="name"
-                        placeholder="Digite seu nome"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Digite seu e-mail"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Mensagem</label>
-                    <textarea
-                        id="message"
-                        rows="5"
-                        placeholder="Digite sua mensagem"
-                        required
-                    ></textarea>
-                </div>
-
-                <button type="submit" class="button">
-                    Enviar mensagem
-                </button>
-
-                <p id="formMessage"></p>
-
-            </form>
 
         </section>
 
     </main>
 
+
+    <!-- CARRINHO -->
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <aside class="cart" id="cart">
+
+        <div class="cart-header">
+
+            <h2>
+                Seu carrinho
+            </h2>
+
+            <button id="closeCart">
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="cart-items" id="cartItems">
+
+            <p class="empty-cart">
+                Seu carrinho está vazio.
+            </p>
+
+        </div>
+
+
+        <div class="cart-footer">
+
+            <div class="total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="cartTotal">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+            <button class="checkout-button" id="checkoutButton">
+                Finalizar compra
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MENSAGEM -->
+
+    <div class="notification" id="notification">
+        Produto adicionado ao carrinho!
+    </div>
+
+
+    <!-- RODAPÉ -->
+
     <footer>
-        <p>© 2026 MeuSite. Todos os direitos reservados.</p>
+
+        <div class="footer-logo">
+            VOGA
+        </div>
+
+        <p>
+            © 2026 VOGA Moda. Todos os direitos reservados.
+        </p>
+
     </footer>
+
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
