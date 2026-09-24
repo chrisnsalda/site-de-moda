@@ -3,316 +3,528 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLEXWEAR — Moda Funcional</title>
+
+    <title>VÉRA — Moda & Estilo</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo">FLEX<span>WEAR</span></div>
+    <!-- CABEÇALHO -->
+    <header class="header">
 
-            <ul class="nav-links">
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#produtos">Produtos</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
+        <a href="#" class="logo">VÉRA</a>
 
-            <button class="cart-button" onclick="abrirCarrinho()">
-                🛒 <span id="contador">0</span>
-            </button>
+        <nav class="nav" id="nav">
+            <a href="#inicio">Início</a>
+            <a href="#colecao">Coleção</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#contato">Contato</a>
         </nav>
+
+        <div class="header-actions">
+
+            <button class="search-button" id="searchButton" aria-label="Pesquisar">
+                🔍
+            </button>
+
+            <button class="cart-button" id="cartButton" aria-label="Carrinho">
+                🛍️
+                <span id="cartCount">0</span>
+            </button>
+
+            <button class="menu-button" id="menuButton" aria-label="Abrir menu">
+                ☰
+            </button>
+
+        </div>
+
     </header>
 
+
+    <!-- CAMPO DE BUSCA -->
+    <div class="search-container" id="searchContainer">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Pesquisar produtos..."
+        >
+    </div>
+
+
+    <!-- HERO -->
     <main>
 
-        <section id="inicio" class="hero">
+        <section class="hero" id="inicio">
+
             <div class="hero-content">
-                <p class="tagline">MODA • TECNOLOGIA • CONFORTO</p>
+
+                <p class="subtitle">NOVA COLEÇÃO 2026</p>
 
                 <h1>
-                    Vista-se para<br>
-                    <span>viver melhor.</span>
+                    Vista sua
+                    <span>essência.</span>
                 </h1>
 
                 <p>
-                    Roupas funcionais desenvolvidas para acompanhar
-                    seu ritmo, do trabalho ao treino.
+                    Peças contemporâneas para quem transforma
+                    estilo em identidade.
                 </p>
 
-                <a href="#produtos" class="btn">Explorar coleção</a>
+                <a href="#colecao" class="button">
+                    Explorar coleção
+                </a>
+
             </div>
 
-            <div class="hero-card">
-                <div class="circle"></div>
-                <div class="model">FUNCTIONAL<br>EVERYDAY</div>
-            </div>
         </section>
 
 
-        <section class="features">
-            <div>
-                <span>01</span>
-                <h3>Conforto</h3>
-                <p>Tecidos leves e respiráveis.</p>
+        <!-- CATEGORIAS -->
+        <section class="categories">
+
+            <div class="section-title">
+                <p>EXPLORE</p>
+                <h2>Encontre seu estilo</h2>
             </div>
 
-            <div>
-                <span>02</span>
-                <h3>Mobilidade</h3>
-                <p>Liberdade para todos os movimentos.</p>
+            <div class="category-buttons">
+
+                <button class="category active" data-category="todos">
+                    Todos
+                </button>
+
+                <button class="category" data-category="feminino">
+                    Feminino
+                </button>
+
+                <button class="category" data-category="masculino">
+                    Masculino
+                </button>
+
+                <button class="category" data-category="acessorios">
+                    Acessórios
+                </button>
+
             </div>
 
-            <div>
-                <span>03</span>
-                <h3>Durabilidade</h3>
-                <p>Materiais pensados para o dia a dia.</p>
-            </div>
-
-            <div>
-                <span>04</span>
-                <h3>Versatilidade</h3>
-                <p>Uma peça, diversas ocasiões.</p>
-            </div>
         </section>
 
 
-        <section id="produtos" class="products-section">
+        <!-- PRODUTOS -->
+        <section class="products-section" id="colecao">
 
-            <div class="section-header">
-                <div>
-                    <p class="tagline">NOSSA COLEÇÃO</p>
-                    <h2>Moda que <span>funciona.</span></h2>
-                </div>
-
-                <div class="filters">
-                    <button class="filter active" onclick="filtrar('todos', this)">
-                        Todos
-                    </button>
-
-                    <button class="filter" onclick="filtrar('masculino', this)">
-                        Masculino
-                    </button>
-
-                    <button class="filter" onclick="filtrar('feminino', this)">
-                        Feminino
-                    </button>
-
-                    <button class="filter" onclick="filtrar('acessorios', this)">
-                        Acessórios
-                    </button>
-                </div>
+            <div class="section-title">
+                <p>DESTAQUES</p>
+                <h2>Nova coleção</h2>
             </div>
 
+            <div class="products-grid" id="productsGrid">
 
-            <div class="products" id="listaProdutos">
+                <!-- PRODUTO 1 -->
+                <article
+                    class="product"
+                    data-category="feminino"
+                    data-name="Vestido Aurora"
+                >
 
-                <article class="product" data-categoria="masculino">
-                    <div class="product-image image-1">
-                        <span class="badge">NOVO</span>
+                    <div class="product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80"
+                            alt="Vestido Aurora"
+                        >
+
+                        <span class="product-tag">
+                            Novo
+                        </span>
+
+                        <button
+                            class="quick-add"
+                            data-product="Vestido Aurora"
+                            data-price="289.90"
+                        >
+                            + Adicionar
+                        </button>
+
                     </div>
 
                     <div class="product-info">
-                        <p>Masculino</p>
-                        <h3>Tech Overshirt</h3>
-                        <div class="product-bottom">
-                            <strong>R$ 289,90</strong>
-                            <button onclick="adicionar('Tech Overshirt', 289.90)">
-                                +
-                            </button>
-                        </div>
+
+                        <h3>Vestido Aurora</h3>
+
+                        <p>Vestido midi em tecido fluido</p>
+
+                        <strong>R$ 289,90</strong>
+
                     </div>
+
                 </article>
 
 
-                <article class="product" data-categoria="feminino">
-                    <div class="product-image image-2">
-                        <span class="badge">DESTAQUE</span>
+                <!-- PRODUTO 2 -->
+                <article
+                    class="product"
+                    data-category="masculino"
+                    data-name="Camisa Essential"
+                >
+
+                    <div class="product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"
+                            alt="Camisa Essential"
+                        >
+
+                        <button
+                            class="quick-add"
+                            data-product="Camisa Essential"
+                            data-price="179.90"
+                        >
+                            + Adicionar
+                        </button>
+
                     </div>
 
                     <div class="product-info">
-                        <p>Feminino</p>
-                        <h3>Urban Motion</h3>
-                        <div class="product-bottom">
-                            <strong>R$ 249,90</strong>
-                            <button onclick="adicionar('Urban Motion', 249.90)">
-                                +
-                            </button>
-                        </div>
+
+                        <h3>Camisa Essential</h3>
+
+                        <p>Algodão premium de corte clássico</p>
+
+                        <strong>R$ 179,90</strong>
+
                     </div>
+
                 </article>
 
 
-                <article class="product" data-categoria="masculino">
-                    <div class="product-image image-3"></div>
+                <!-- PRODUTO 3 -->
+                <article
+                    class="product"
+                    data-category="feminino"
+                    data-name="Blazer Milano"
+                >
+
+                    <div class="product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?auto=format&fit=crop&w=800&q=80"
+                            alt="Blazer Milano"
+                        >
+
+                        <span class="product-tag">
+                            Bestseller
+                        </span>
+
+                        <button
+                            class="quick-add"
+                            data-product="Blazer Milano"
+                            data-price="399.90"
+                        >
+                            + Adicionar
+                        </button>
+
+                    </div>
 
                     <div class="product-info">
-                        <p>Masculino</p>
-                        <h3>Flex Cargo</h3>
-                        <div class="product-bottom">
-                            <strong>R$ 319,90</strong>
-                            <button onclick="adicionar('Flex Cargo', 319.90)">
-                                +
-                            </button>
-                        </div>
+
+                        <h3>Blazer Milano</h3>
+
+                        <p>Alfaiataria contemporânea</p>
+
+                        <strong>R$ 399,90</strong>
+
                     </div>
+
                 </article>
 
 
-                <article class="product" data-categoria="feminino">
-                    <div class="product-image image-4"></div>
+                <!-- PRODUTO 4 -->
+                <article
+                    class="product"
+                    data-category="acessorios"
+                    data-name="Bolsa Siena"
+                >
+
+                    <div class="product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80"
+                            alt="Bolsa Siena"
+                        >
+
+                        <button
+                            class="quick-add"
+                            data-product="Bolsa Siena"
+                            data-price="249.90"
+                        >
+                            + Adicionar
+                        </button>
+
+                    </div>
 
                     <div class="product-info">
-                        <p>Feminino</p>
-                        <h3>Move Jacket</h3>
-                        <div class="product-bottom">
-                            <strong>R$ 379,90</strong>
-                            <button onclick="adicionar('Move Jacket', 379.90)">
-                                +
-                            </button>
-                        </div>
+
+                        <h3>Bolsa Siena</h3>
+
+                        <p>Bolsa estruturada em couro sintético</p>
+
+                        <strong>R$ 249,90</strong>
+
                     </div>
+
                 </article>
 
 
-                <article class="product" data-categoria="acessorios">
-                    <div class="product-image image-5"></div>
+                <!-- PRODUTO 5 -->
+                <article
+                    class="product"
+                    data-category="masculino"
+                    data-name="Jaqueta Urban"
+                >
+
+                    <div class="product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80"
+                            alt="Jaqueta Urban"
+                        >
+
+                        <button
+                            class="quick-add"
+                            data-product="Jaqueta Urban"
+                            data-price="329.90"
+                        >
+                            + Adicionar
+                        </button>
+
+                    </div>
 
                     <div class="product-info">
-                        <p>Acessórios</p>
-                        <h3>Urban Backpack</h3>
-                        <div class="product-bottom">
-                            <strong>R$ 229,90</strong>
-                            <button onclick="adicionar('Urban Backpack', 229.90)">
-                                +
-                            </button>
-                        </div>
+
+                        <h3>Jaqueta Urban</h3>
+
+                        <p>Design minimalista e versátil</p>
+
+                        <strong>R$ 329,90</strong>
+
                     </div>
+
                 </article>
 
 
-                <article class="product" data-categoria="acessorios">
-                    <div class="product-image image-6"></div>
+                <!-- PRODUTO 6 -->
+                <article
+                    class="product"
+                    data-category="acessorios"
+                    data-name="Óculos Noir"
+                >
+
+                    <div class="product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80"
+                            alt="Óculos Noir"
+                        >
+
+                        <button
+                            class="quick-add"
+                            data-product="Óculos Noir"
+                            data-price="159.90"
+                        >
+                            + Adicionar
+                        </button>
+
+                    </div>
 
                     <div class="product-info">
-                        <p>Acessórios</p>
-                        <h3>Utility Cap</h3>
-                        <div class="product-bottom">
-                            <strong>R$ 99,90</strong>
-                            <button onclick="adicionar('Utility Cap', 99.90)">
-                                +
-                            </button>
-                        </div>
+
+                        <h3>Óculos Noir</h3>
+
+                        <p>Armação clássica com acabamento premium</p>
+
+                        <strong>R$ 159,90</strong>
+
                     </div>
+
                 </article>
 
             </div>
+
+            <p class="no-results" id="noResults">
+                Nenhum produto encontrado.
+            </p>
+
         </section>
 
 
-        <section id="sobre" class="about">
+        <!-- BANNER -->
+        <section class="banner">
+
+            <div class="banner-content">
+
+                <p>ESSENCIALMENTE VÉRA</p>
+
+                <h2>
+                    Menos excessos.
+                    <br>
+                    Mais personalidade.
+                </h2>
+
+                <a href="#colecao" class="button button-light">
+                    Descobrir
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- SOBRE -->
+        <section class="about" id="sobre">
 
             <div class="about-image">
-                <div class="about-number">24/7</div>
+
+                <img
+                    src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=80"
+                    alt="Interior de uma loja de moda"
+                >
+
             </div>
 
             <div class="about-content">
-                <p class="tagline">SOBRE A FLEXWEAR</p>
+
+                <p class="subtitle">SOBRE A VÉRA</p>
 
                 <h2>
-                    Feita para quem
-                    <span>não para.</span>
+                    Moda que acompanha
+                    quem você é.
                 </h2>
 
                 <p>
-                    A FLEXWEAR nasceu da ideia de unir estética,
-                    funcionalidade e praticidade em uma única peça.
+                    A VÉRA nasceu da ideia de criar uma moda
+                    contemporânea, elegante e acessível. Cada
+                    peça é pensada para fazer parte da sua
+                    rotina e permanecer além das tendências.
                 </p>
 
-                <p>
-                    Criamos roupas para acompanhar diferentes momentos
-                    do dia sem comprometer o estilo.
-                </p>
+                <a href="#contato" class="text-link">
+                    Conheça nossa história →
+                </a>
 
-                <a href="#contato" class="btn dark">Conheça nossa história</a>
             </div>
 
         </section>
 
 
-        <section id="contato" class="newsletter">
-            <p class="tagline">FIQUE POR DENTRO</p>
+        <!-- NEWSLETTER -->
+        <section class="newsletter" id="contato">
 
-            <h2>Receba novidades.</h2>
+            <div>
 
-            <p>
-                Cadastre seu e-mail e receba lançamentos e novidades.
-            </p>
+                <p>FAÇA PARTE</p>
 
-            <form onsubmit="inscrever(event)">
+                <h2>
+                    Receba novidades
+                    da VÉRA.
+                </h2>
+
+            </div>
+
+            <form id="newsletterForm">
+
                 <input
                     type="email"
-                    id="email"
+                    id="emailInput"
                     placeholder="Seu melhor e-mail"
                     required
                 >
 
-                <button type="submit">Cadastrar</button>
+                <button type="submit">
+                    Inscrever
+                </button>
+
             </form>
 
-            <p id="mensagem"></p>
         </section>
 
     </main>
 
 
-    <footer>
-        <div class="logo">FLEX<span>WEAR</span></div>
-
-        <p>Moda funcional para a vida real.</p>
-
-        <div class="social">
-            <a href="#">Instagram</a>
-            <a href="#">TikTok</a>
-            <a href="#">Pinterest</a>
-        </div>
-
-        <small>© 2026 FLEXWEAR. Todos os direitos reservados.</small>
-    </footer>
-
-
     <!-- CARRINHO -->
-    <div class="cart-overlay" id="cartOverlay" onclick="fecharCarrinho()"></div>
+    <div class="cart-overlay" id="cartOverlay"></div>
 
     <aside class="cart" id="cart">
 
         <div class="cart-header">
+
             <h2>Seu carrinho</h2>
 
-            <button onclick="fecharCarrinho()">×</button>
+            <button id="closeCart">
+                ×
+            </button>
+
         </div>
 
-        <div id="itensCarrinho" class="cart-items">
-            <p class="empty">Seu carrinho está vazio.</p>
+        <div class="cart-items" id="cartItems">
+
+            <p class="empty-cart">
+                Seu carrinho está vazio.
+            </p>
+
         </div>
 
         <div class="cart-footer">
-            <div>
+
+            <div class="cart-total">
+
                 <span>Total</span>
-                <strong id="total">R$ 0,00</strong>
+
+                <strong id="cartTotal">
+                    R$ 0,00
+                </strong>
+
             </div>
 
-            <button class="checkout" onclick="finalizarCompra()">
+            <button class="checkout" id="checkout">
                 Finalizar compra
             </button>
+
         </div>
 
     </aside>
+
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+
+        <div class="footer-logo">
+            VÉRA
+        </div>
+
+        <p>
+            © 2026 VÉRA. Todos os direitos reservados.
+        </p>
+
+        <div class="socials">
+
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">TikTok</a>
+
+        </div>
+
+    </footer>
 
 
     <script src="script.js"></script>
 
 </body>
 </html>
+
