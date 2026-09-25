@@ -1,530 +1,945 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* =========================
+   CONFIGURAÇÕES GERAIS
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    color: #171717;
+    background: #f9f8f5;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    height: 80px;
+    padding: 0 6%;
+    background: #f9f8f5;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    <title>VÉRA — Moda & Estilo</title>
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
-    <link rel="stylesheet" href="style.css">
+    border-bottom: 1px solid #e8e5df;
+}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-</head>
+.logo {
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    letter-spacing: 5px;
+    font-weight: 600;
+}
 
-<body>
+.nav {
+    display: flex;
+    gap: 35px;
+}
 
-    <!-- CABEÇALHO -->
-    <header class="header">
+.nav a {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
 
-        <a href="#" class="logo">VÉRA</a>
+.nav a:hover {
+    color: #8d735d;
+}
 
-        <nav class="nav" id="nav">
-            <a href="#inicio">Início</a>
-            <a href="#colecao">Coleção</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#contato">Contato</a>
-        </nav>
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-        <div class="header-actions">
+.search-button,
+.cart-button,
+.menu-button {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+}
 
-            <button class="search-button" id="searchButton" aria-label="Pesquisar">
-                🔍
-            </button>
+.cart-button {
+    position: relative;
+}
+
+#cartCount {
+    position: absolute;
 
-            <button class="cart-button" id="cartButton" aria-label="Carrinho">
-                🛍️
-                <span id="cartCount">0</span>
-            </button>
+    top: -9px;
+    right: -10px;
 
-            <button class="menu-button" id="menuButton" aria-label="Abrir menu">
-                ☰
-            </button>
+    width: 18px;
+    height: 18px;
 
-        </div>
+    border-radius: 50%;
 
-    </header>
+    background: #171717;
+    color: white;
 
+    font-size: 10px;
 
-    <!-- CAMPO DE BUSCA -->
-    <div class="search-container" id="searchContainer">
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Pesquisar produtos..."
-        >
-    </div>
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.menu-button {
+    display: none;
+}
 
-    <!-- HERO -->
-    <main>
 
-        <section class="hero" id="inicio">
+/* =========================
+   SEARCH
+========================= */
 
-            <div class="hero-content">
+.search-container {
+    max-height: 0;
+    overflow: hidden;
 
-                <p class="subtitle">NOVA COLEÇÃO 2026</p>
+    transition: 0.4s;
 
-                <h1>
-                    Vista sua
-                    <span>essência.</span>
-                </h1>
+    background: #fff;
+}
 
-                <p>
-                    Peças contemporâneas para quem transforma
-                    estilo em identidade.
-                </p>
+.search-container.active {
+    max-height: 100px;
+    padding: 20px 6%;
+}
 
-                <a href="#colecao" class="button">
-                    Explorar coleção
-                </a>
+.search-container input {
+    width: 100%;
 
-            </div>
+    padding: 14px 20px;
 
-        </section>
+    border: 1px solid #ddd;
 
+    outline: none;
 
-        <!-- CATEGORIAS -->
-        <section class="categories">
+    font-size: 14px;
+}
 
-            <div class="section-title">
-                <p>EXPLORE</p>
-                <h2>Encontre seu estilo</h2>
-            </div>
 
-            <div class="category-buttons">
+/* =========================
+   HERO
+========================= */
 
-                <button class="category active" data-category="todos">
-                    Todos
-                </button>
+.hero {
+    min-height: 720px;
 
-                <button class="category" data-category="feminino">
-                    Feminino
-                </button>
+    display: flex;
+    align-items: center;
 
-                <button class="category" data-category="masculino">
-                    Masculino
-                </button>
+    padding: 80px 8%;
 
-                <button class="category" data-category="acessorios">
-                    Acessórios
-                </button>
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20, 18, 16, 0.75),
+            rgba(20, 18, 16, 0.15)
+        ),
+        url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85");
 
-            </div>
+    background-size: cover;
+    background-position: center;
+}
 
-        </section>
+.hero-content {
+    color: white;
+    max-width: 650px;
+}
 
+.subtitle {
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
 
-        <!-- PRODUTOS -->
-        <section class="products-section" id="colecao">
+.hero h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(55px, 8vw, 100px);
+    line-height: 0.95;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
 
-            <div class="section-title">
-                <p>DESTAQUES</p>
-                <h2>Nova coleção</h2>
-            </div>
+.hero h1 span {
+    font-style: italic;
+}
 
-            <div class="products-grid" id="productsGrid">
+.hero p:not(.subtitle) {
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 35px;
+}
 
-                <!-- PRODUTO 1 -->
-                <article
-                    class="product"
-                    data-category="feminino"
-                    data-name="Vestido Aurora"
-                >
 
-                    <div class="product-image">
+/* =========================
+   BOTÕES
+========================= */
 
-                        <img
-                            src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80"
-                            alt="Vestido Aurora"
-                        >
+.button {
+    display: inline-block;
 
-                        <span class="product-tag">
-                            Novo
-                        </span>
+    padding: 16px 30px;
 
-                        <button
-                            class="quick-add"
-                            data-product="Vestido Aurora"
-                            data-price="289.90"
-                        >
-                            + Adicionar
-                        </button>
+    background: white;
+    color: #171717;
 
-                    </div>
+    font-size: 12px;
+    font-weight: 600;
 
-                    <div class="product-info">
+    text-transform: uppercase;
+    letter-spacing: 1px;
 
-                        <h3>Vestido Aurora</h3>
+    transition: 0.3s;
+}
 
-                        <p>Vestido midi em tecido fluido</p>
+.button:hover {
+    background: #b69a7e;
+    color: white;
+}
 
-                        <strong>R$ 289,90</strong>
+.button-light {
+    background: white;
+}
 
-                    </div>
 
-                </article>
+/* =========================
+   CATEGORIAS
+========================= */
 
+.categories {
+    padding: 100px 6% 50px;
+    text-align: center;
+}
 
-                <!-- PRODUTO 2 -->
-                <article
-                    class="product"
-                    data-category="masculino"
-                    data-name="Camisa Essential"
-                >
+.section-title p {
+    color: #a08367;
 
-                    <div class="product-image">
+    font-size: 11px;
+    font-weight: 700;
 
-                        <img
-                            src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"
-                            alt="Camisa Essential"
-                        >
+    letter-spacing: 3px;
 
-                        <button
-                            class="quick-add"
-                            data-product="Camisa Essential"
-                            data-price="179.90"
-                        >
-                            + Adicionar
-                        </button>
+    margin-bottom: 12px;
+}
 
-                    </div>
+.section-title h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 45px;
+    font-weight: 500;
+}
 
-                    <div class="product-info">
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 
-                        <h3>Camisa Essential</h3>
+    margin-top: 40px;
+}
 
-                        <p>Algodão premium de corte clássico</p>
+.category {
+    border: 1px solid #d8d4cd;
+    background: transparent;
 
-                        <strong>R$ 179,90</strong>
+    padding: 12px 25px;
 
-                    </div>
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 
-                </article>
+    transition: 0.3s;
+}
 
+.category:hover,
+.category.active {
+    background: #171717;
+    color: white;
+    border-color: #171717;
+}
 
-                <!-- PRODUTO 3 -->
-                <article
-                    class="product"
-                    data-category="feminino"
-                    data-name="Blazer Milano"
-                >
 
-                    <div class="product-image">
+/* =========================
+   PRODUTOS
+========================= */
 
-                        <img
-                            src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?auto=format&fit=crop&w=800&q=80"
-                            alt="Blazer Milano"
-                        >
+.products-section {
+    padding: 50px 6% 120px;
+}
 
-                        <span class="product-tag">
-                            Bestseller
-                        </span>
+.products-grid {
+    display: grid;
 
-                        <button
-                            class="quick-add"
-                            data-product="Blazer Milano"
-                            data-price="399.90"
-                        >
-                            + Adicionar
-                        </button>
+    grid-template-columns:
+        repeat(3, 1fr);
 
-                    </div>
+    gap: 50px 25px;
 
-                    <div class="product-info">
+    margin-top: 60px;
+}
 
-                        <h3>Blazer Milano</h3>
+.product-image {
+    position: relative;
+    overflow: hidden;
+    background: #eee;
+}
 
-                        <p>Alfaiataria contemporânea</p>
+.product-image img {
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
 
-                        <strong>R$ 399,90</strong>
+    transition: transform 0.6s;
+}
 
-                    </div>
+.product:hover .product-image img {
+    transform: scale(1.04);
+}
 
-                </article>
+.product-tag {
+    position: absolute;
 
+    top: 15px;
+    left: 15px;
 
-                <!-- PRODUTO 4 -->
-                <article
-                    class="product"
-                    data-category="acessorios"
-                    data-name="Bolsa Siena"
-                >
+    background: white;
 
-                    <div class="product-image">
+    padding: 7px 12px;
 
-                        <img
-                            src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80"
-                            alt="Bolsa Siena"
-                        >
+    font-size: 9px;
 
-                        <button
-                            class="quick-add"
-                            data-product="Bolsa Siena"
-                            data-price="249.90"
-                        >
-                            + Adicionar
-                        </button>
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-                    </div>
+.quick-add {
+    position: absolute;
 
-                    <div class="product-info">
+    bottom: 0;
+    left: 0;
 
-                        <h3>Bolsa Siena</h3>
+    width: 100%;
 
-                        <p>Bolsa estruturada em couro sintético</p>
+    padding: 16px;
 
-                        <strong>R$ 249,90</strong>
+    border: none;
 
-                    </div>
+    background: rgba(23, 23, 23, 0.92);
+    color: white;
 
-                </article>
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 
+    transform: translateY(100%);
 
-                <!-- PRODUTO 5 -->
-                <article
-                    class="product"
-                    data-category="masculino"
-                    data-name="Jaqueta Urban"
-                >
+    transition: 0.3s;
+}
 
-                    <div class="product-image">
+.product:hover .quick-add {
+    transform: translateY(0);
+}
 
-                        <img
-                            src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80"
-                            alt="Jaqueta Urban"
-                        >
+.product-info {
+    padding-top: 18px;
+}
 
-                        <button
-                            class="quick-add"
-                            data-product="Jaqueta Urban"
-                            data-price="329.90"
-                        >
-                            + Adicionar
-                        </button>
+.product-info h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 21px;
+    font-weight: 500;
+}
 
-                    </div>
+.product-info p {
+    color: #777;
 
-                    <div class="product-info">
+    font-size: 12px;
 
-                        <h3>Jaqueta Urban</h3>
+    margin: 7px 0 12px;
+}
 
-                        <p>Design minimalista e versátil</p>
+.product-info strong {
+    font-size: 14px;
+}
 
-                        <strong>R$ 329,90</strong>
+.no-results {
+    display: none;
 
-                    </div>
+    text-align: center;
 
-                </article>
+    margin-top: 50px;
 
+    color: #777;
+}
 
-                <!-- PRODUTO 6 -->
-                <article
-                    class="product"
-                    data-category="acessorios"
-                    data-name="Óculos Noir"
-                >
 
-                    <div class="product-image">
+/* =========================
+   BANNER
+========================= */
 
-                        <img
-                            src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80"
-                            alt="Óculos Noir"
-                        >
+.banner {
+    min-height: 550px;
 
-                        <button
-                            class="quick-add"
-                            data-product="Óculos Noir"
-                            data-price="159.90"
-                        >
-                            + Adicionar
-                        </button>
+    display: flex;
+    align-items: center;
 
-                    </div>
+    padding: 80px 8%;
 
-                    <div class="product-info">
+    color: white;
 
-                        <h3>Óculos Noir</h3>
+    background:
+        linear-gradient(
+            rgba(30, 25, 20, 0.55),
+            rgba(30, 25, 20, 0.55)
+        ),
+        url("https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1800&q=85");
 
-                        <p>Armação clássica com acabamento premium</p>
+    background-size: cover;
+    background-position: center;
+}
 
-                        <strong>R$ 159,90</strong>
+.banner-content {
+    max-width: 600px;
+}
 
-                    </div>
+.banner-content > p {
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
 
-                </article>
+.banner h2 {
+    font-family: "Playfair Display", serif;
 
-            </div>
+    font-size: clamp(45px, 6vw, 75px);
 
-            <p class="no-results" id="noResults">
-                Nenhum produto encontrado.
-            </p>
+    line-height: 1.05;
 
-        </section>
+    font-weight: 500;
 
+    margin-bottom: 35px;
+}
 
-        <!-- BANNER -->
-        <section class="banner">
 
-            <div class="banner-content">
+/* =========================
+   SOBRE
+========================= */
 
-                <p>ESSENCIALMENTE VÉRA</p>
+.about {
+    display: grid;
 
-                <h2>
-                    Menos excessos.
-                    <br>
-                    Mais personalidade.
-                </h2>
+    grid-template-columns: 1fr 1fr;
 
-                <a href="#colecao" class="button button-light">
-                    Descobrir
-                </a>
+    align-items: center;
 
-            </div>
+    gap: 80px;
 
-        </section>
+    padding: 120px 8%;
+}
 
+.about-image img {
+    height: 600px;
+    object-fit: cover;
+}
 
-        <!-- SOBRE -->
-        <section class="about" id="sobre">
+.about-content {
+    max-width: 500px;
+}
 
-            <div class="about-image">
+.about-content h2 {
+    font-family: "Playfair Display", serif;
 
-                <img
-                    src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=80"
-                    alt="Interior de uma loja de moda"
-                >
+    font-size: 50px;
 
-            </div>
+    line-height: 1.1;
 
-            <div class="about-content">
+    font-weight: 500;
 
-                <p class="subtitle">SOBRE A VÉRA</p>
+    margin-bottom: 30px;
+}
 
-                <h2>
-                    Moda que acompanha
-                    quem você é.
-                </h2>
+.about-content > p:not(.subtitle) {
+    color: #666;
 
-                <p>
-                    A VÉRA nasceu da ideia de criar uma moda
-                    contemporânea, elegante e acessível. Cada
-                    peça é pensada para fazer parte da sua
-                    rotina e permanecer além das tendências.
-                </p>
+    line-height: 1.9;
 
-                <a href="#contato" class="text-link">
-                    Conheça nossa história →
-                </a>
+    font-size: 14px;
 
-            </div>
+    margin-bottom: 30px;
+}
 
-        </section>
+.text-link {
+    font-size: 12px;
 
+    font-weight: 600;
 
-        <!-- NEWSLETTER -->
-        <section class="newsletter" id="contato">
+    text-transform: uppercase;
 
-            <div>
+    letter-spacing: 1px;
 
-                <p>FAÇA PARTE</p>
+    border-bottom: 1px solid #171717;
 
-                <h2>
-                    Receba novidades
-                    da VÉRA.
-                </h2>
+    padding-bottom: 5px;
+}
 
-            </div>
 
-            <form id="newsletterForm">
+/* =========================
+   NEWSLETTER
+========================= */
 
-                <input
-                    type="email"
-                    id="emailInput"
-                    placeholder="Seu melhor e-mail"
-                    required
-                >
+.newsletter {
+    background: #e8e0d5;
 
-                <button type="submit">
-                    Inscrever
-                </button>
+    padding: 80px 8%;
 
-            </form>
+    display: flex;
 
-        </section>
+    justify-content: space-between;
 
-    </main>
+    align-items: center;
 
+    gap: 50px;
+}
 
-    <!-- CARRINHO -->
-    <div class="cart-overlay" id="cartOverlay"></div>
+.newsletter h2 {
+    font-family: "Playfair Display", serif;
 
-    <aside class="cart" id="cart">
+    font-size: 45px;
 
-        <div class="cart-header">
+    font-weight: 500;
+}
 
-            <h2>Seu carrinho</h2>
+.newsletter form {
+    display: flex;
 
-            <button id="closeCart">
-                ×
-            </button>
+    width: 500px;
 
-        </div>
+    max-width: 100%;
+}
 
-        <div class="cart-items" id="cartItems">
+.newsletter input {
+    flex: 1;
 
-            <p class="empty-cart">
-                Seu carrinho está vazio.
-            </p>
+    border: none;
 
-        </div>
+    background: white;
 
-        <div class="cart-footer">
+    padding: 17px;
 
-            <div class="cart-total">
+    outline: none;
+}
 
-                <span>Total</span>
+.newsletter button {
+    border: none;
 
-                <strong id="cartTotal">
-                    R$ 0,00
-                </strong>
+    background: #171717;
 
-            </div>
+    color: white;
 
-            <button class="checkout" id="checkout">
-                Finalizar compra
-            </button>
+    padding: 0 25px;
 
-        </div>
+    text-transform: uppercase;
 
-    </aside>
+    font-size: 10px;
 
+    letter-spacing: 1px;
+}
 
-    <!-- RODAPÉ -->
-    <footer class="footer">
 
-        <div class="footer-logo">
-            VÉRA
-        </div>
+/* =========================
+   CARRINHO
+========================= */
 
-        <p>
-            © 2026 VÉRA. Todos os direitos reservados.
-        </p>
+.cart-overlay {
+    position: fixed;
 
-        <div class="socials">
+    inset: 0;
 
-            <a href="#">Instagram</a>
-            <a href="#">Pinterest</a>
-            <a href="#">TikTok</a>
+    background: rgba(0, 0, 0, 0.45);
 
-        </div>
+    z-index: 1998;
 
-    </footer>
+    opacity: 0;
+    visibility: hidden;
 
+    transition: 0.3s;
+}
 
-    <script src="script.js"></script>
+.cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
 
-</body>
-</html>
+.cart {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    width: 420px;
+    max-width: 90%;
+
+    height: 100vh;
+
+    background: #fff;
+
+    z-index: 1999;
+
+    transform: translateX(100%);
+
+    transition: 0.4s;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.cart.active {
+    transform: translateX(0);
+}
+
+.cart-header {
+    padding: 25px;
+
+    border-bottom: 1px solid #eee;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-header h2 {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+}
+
+.cart-header button {
+    border: none;
+    background: none;
+
+    font-size: 30px;
+}
+
+.cart-items {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 25px;
+}
+
+.empty-cart {
+    color: #777;
+    text-align: center;
+
+    margin-top: 50px;
+}
+
+.cart-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item-info h4 {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.cart-item-info p {
+    font-size: 12px;
+    color: #777;
+}
+
+.remove-item {
+    border: none;
+
+    background: none;
+
+    color: #a33;
+
+    font-size: 12px;
+}
+
+.cart-footer {
+    padding: 25px;
+
+    border-top: 1px solid #eee;
+}
+
+.cart-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+    font-size: 14px;
+}
+
+.checkout {
+    width: 100%;
+
+    border: none;
+
+    background: #171717;
+
+    color: white;
+
+    padding: 17px;
+
+    text-transform: uppercase;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    background: #171717;
+
+    color: white;
+
+    padding: 60px 6%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+.footer-logo {
+    font-family: "Playfair Display", serif;
+
+    font-size: 30px;
+
+    letter-spacing: 5px;
+}
+
+.footer p {
+    color: #888;
+
+    font-size: 11px;
+}
+
+.socials {
+    display: flex;
+
+    gap: 20px;
+}
+
+.socials a {
+    font-size: 11px;
+
+    color: #bbb;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+
+    .nav {
+        position: absolute;
+
+        top: 80px;
+        left: 0;
+
+        width: 100%;
+
+        background: #f9f8f5;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        padding: 25px;
+
+        gap: 20px;
+
+        transform: translateY(-150%);
+
+        transition: 0.4s;
+    }
+
+    .nav.active {
+        transform: translateY(0);
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+    }
+
+    .about-image img {
+        height: 500px;
+    }
+
+    .newsletter {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .header {
+        height: 70px;
+    }
+
+    .nav {
+        top: 70px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .hero {
+        min-height: 650px;
+
+        padding: 50px 7%;
+    }
+
+    .hero h1 {
+        font-size: 60px;
+    }
+
+    .categories {
+        padding-top: 70px;
+    }
+
+    .section-title h2 {
+        font-size: 36px;
+    }
+
+    .category-buttons {
+        flex-wrap: wrap;
+    }
+
+    .products-section {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 35px 12px;
+    }
+
+    .product-info h3 {
+        font-size: 17px;
+    }
+
+    .product-info p {
+        font-size: 10px;
+    }
+
+    .quick-add {
+        transform: translateY(0);
+
+        font-size: 9px;
+
+        padding: 12px;
+    }
+
+    .banner {
+        min-height: 500px;
+    }
+
+    .about {
+        padding: 80px 7%;
+    }
+
+    .about-image img {
+        height: 400px;
+    }
+
+    .about-content h2 {
+        font-size: 40px;
+    }
+
+    .newsletter {
+        padding: 60px 7%;
+    }
+
+    .newsletter h2 {
+        font-size: 38px;
+    }
+
+    .newsletter form {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+}
 

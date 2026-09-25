@@ -1,37 +1,118 @@
 let carrinho = [];
 
+// =============================
+// ELEMENTOS
+// =============================
+
+const produtos = document.querySelectorAll(".product");
+const botoesCategoria = document.querySelectorAll(".category");
+const botoesAdicionar = document.querySelectorAll(".quick-add");
+
+const cart = document.getElementById("cart");
+const cartOverlay = document.getElementById("cartOverlay");
+const cartButton = document.getElementById("cartButton");
+const closeCart = document.getElementById("closeCart");
+
+const cartItems = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const cartTotal = document.getElementById("cartTotal");
+
+const searchButton = document.getElementById("searchButton");
+const searchContainer = document.getElementById("searchContainer");
+const searchInput = document.getElementById("searchInput");
+
+const noResults = document.getElementById("noResults");
+
+const newsletterForm = document.getElementById("newsletterForm");
+const emailInput = document.getElementById("emailInput");
+
+const menuButton = document.getElementById("menuButton");
+const nav = document.getElementById("nav");
+
+// =============================
+// MENU MOBILE
+// =============================
+
+menuButton.addEventListener("click", () => {
+
+nav.classList.toggle("active");
+
+
+});
+
+// Fecha o menu ao clicar em um link
+
+nav.querySelectorAll("a").forEach(link => {
+
+link.addEventListener("click", () => {
+
+    nav.classList.remove("active");
+
+});
+
+
+});
 
 // =============================
 // FILTRO DE PRODUTOS
 // =============================
 
-function filtrar(categoria, botao) {
+function filtrar(categoria) {
 
-    const produtos = document.querySelectorAll(".product");
-    const botoes = document.querySelectorAll(".filter");
+let encontrou = false;
 
-    botoes.forEach(btn => {
-        btn.classList.remove("active");
-    });
+botoesCategoria.forEach(botao => {
 
-    botao.classList.add("active");
+    botao.classList.remove("active");
 
-    produtos.forEach(produto => {
+    if (botao.dataset.category === categoria) {
+        botao.classList.add("active");
+    }
 
-        const categoriaProduto = produto.dataset.categoria;
+});
 
-        if (
-            categoria === "todos" ||
-            categoriaProduto === categoria
-        ) {
-            produto.style.display = "block";
-        } else {
-            produto.style.display = "none";
-        }
+produtos.forEach(produto => {
 
-    });
+    const categoriaProduto =
+        produto.dataset.category;
+
+    if (
+        categoria === "todos" ||
+        categoriaProduto === categoria
+    ) {
+
+        produto.style.display = "";
+
+        encontrou = true;
+
+    } else {
+
+        produto.style.display = "none";
+
+    }
+
+});
+
+noResults.style.display =
+    encontrou ? "none" : "block";
+
+
 }
 
+// =============================
+// BOTÕES DE CATEGORIA
+// =============================
+
+botoesCategoria.forEach(botao => {
+
+botao.addEventListener("click", () => {
+
+    filtrar(botao.dataset.category);
+
+});
+
+
+});
 
 // =============================
 // ADICIONAR AO CARRINHO
@@ -39,28 +120,51 @@ function filtrar(categoria, botao) {
 
 function adicionar(nome, preco) {
 
-    const produtoExistente = carrinho.find(
-        produto => produto.nome === nome
-    );
+const produtoExistente = carrinho.find(
+    produto => produto.nome === nome
+);
 
-    if (produtoExistente) {
+if (produtoExistente) {
 
-        produtoExistente.quantidade++;
+    produtoExistente.quantidade++;
 
-    } else {
+} else {
 
-        carrinho.push({
-            nome: nome,
-            preco: preco,
-            quantidade: 1
-        });
+    carrinho.push({
+        nome: nome,
+        preco: Number(preco),
+        quantidade: 1
+    });
 
-    }
-
-    atualizarCarrinho();
-    abrirCarrinho();
 }
 
+atualizarCarrinho();
+
+abrirCarrinho();
+
+
+}
+
+// =============================
+// BOTÕES ADICIONAR
+// =============================
+
+botoesAdicionar.forEach(botao => {
+
+botao.addEventListener("click", () => {
+
+    const nome =
+        botao.dataset.product;
+
+    const preco =
+        Number(botao.dataset.price);
+
+    adicionar(nome, preco);
+
+});
+
+
+});
 
 // =============================
 // ATUALIZAR CARRINHO
@@ -68,78 +172,107 @@ function adicionar(nome, preco) {
 
 function atualizarCarrinho() {
 
-    const container = document.getElementById("itensCarrinho");
-    const contador = document.getElementById("contador");
-    const totalElemento = document.getElementById("total");
+cartItems.innerHTML = "";
 
-    container.innerHTML = "";
+let quantidadeTotal = 0;
+let valorTotal = 0;
 
-    let quantidadeTotal = 0;
-    let valorTotal = 0;
+if (carrinho.length === 0) {
 
-    if (carrinho.length === 0) {
+    cartItems.innerHTML = `
+        <p class="empty-cart">
+            Seu carrinho está vazio.
+        </p>
+    `;
 
-        container.innerHTML = `
-            <p class="empty">
-                Seu carrinho está vazio.
-            </p>
+} else {
+
+    carrinho.forEach((produto, index) => {
+
+        quantidadeTotal +=
+            produto.quantidade;
+
+        valorTotal +=
+            produto.preco *
+            produto.quantidade;
+
+        const item =
+            document.createElement("div");
+
+        item.classList.add("cart-item");
+
+        item.innerHTML = `
+            <div class="cart-item-info">
+
+                <h4>
+                    ${produto.nome}
+                </h4>
+
+                <p>
+                    ${produto.quantidade}x
+                    R$ ${produto.preco
+                        .toFixed(2)
+                        .replace(".", ",")}
+                </p>
+
+            </div>
+
+            <button
+                class="remove-item"
+                data-index="${index}">
+                Remover
+            </button>
         `;
 
-    } else {
+        cartItems.appendChild(item);
 
-        carrinho.forEach((produto, index) => {
+    });
 
-            quantidadeTotal += produto.quantidade;
-
-            valorTotal +=
-                produto.preco * produto.quantidade;
-
-            const item = document.createElement("div");
-
-            item.classList.add("cart-item");
-
-            item.innerHTML = `
-                <div>
-                    <h4>${produto.nome}</h4>
-
-                    <p>
-                        ${produto.quantidade}x
-                        R$ ${produto.preco.toFixed(2).replace(".", ",")}
-                    </p>
-                </div>
-
-                <button
-                    class="remove"
-                    onclick="remover(${index})">
-                    Remover
-                </button>
-            `;
-
-            container.appendChild(item);
-
-        });
-
-    }
-
-    contador.textContent = quantidadeTotal;
-
-    totalElemento.textContent =
-        "R$ " +
-        valorTotal.toFixed(2).replace(".", ",");
 }
 
+cartCount.textContent =
+    quantidadeTotal;
+
+cartTotal.textContent =
+    "R$ " +
+    valorTotal
+        .toFixed(2)
+        .replace(".", ",");
+
+
+// Botões remover
+
+const botoesRemover =
+    document.querySelectorAll(".remove-item");
+
+botoesRemover.forEach(botao => {
+
+    botao.addEventListener("click", () => {
+
+        const index =
+            Number(botao.dataset.index);
+
+        remover(index);
+
+    });
+
+});
+
+
+}
 
 // =============================
-// REMOVER PRODUTO
+// REMOVER
 // =============================
 
 function remover(index) {
 
-    carrinho.splice(index, 1);
+carrinho.splice(index, 1);
 
-    atualizarCarrinho();
+atualizarCarrinho();
+
+
 }
-
 
 // =============================
 // ABRIR CARRINHO
@@ -147,13 +280,12 @@ function remover(index) {
 
 function abrirCarrinho() {
 
-    document.getElementById("cart").classList.add("active");
+cart.classList.add("active");
 
-    document
-        .getElementById("cartOverlay")
-        .classList.add("active");
+cartOverlay.classList.add("active");
+
+
 }
-
 
 // =============================
 // FECHAR CARRINHO
@@ -161,52 +293,147 @@ function abrirCarrinho() {
 
 function fecharCarrinho() {
 
-    document
-        .getElementById("cart")
-        .classList.remove("active");
+cart.classList.remove("active");
 
-    document
-        .getElementById("cartOverlay")
-        .classList.remove("active");
+cartOverlay.classList.remove("active");
+
+
 }
 
+cartButton.addEventListener("click", () => {
+
+abrirCarrinho();
+
+
+});
+
+closeCart.addEventListener("click", () => {
+
+fecharCarrinho();
+
+
+});
+
+cartOverlay.addEventListener("click", () => {
+
+fecharCarrinho();
+
+
+});
+
+// =============================
+// BUSCA
+// =============================
+
+searchButton.addEventListener("click", () => {
+
+searchContainer.classList.toggle("active");
+
+if (
+    searchContainer.classList.contains("active")
+) {
+
+    searchInput.focus();
+
+}
+
+
+});
+
+// =============================
+// PESQUISAR
+// =============================
+
+searchInput.addEventListener("input", () => {
+
+const termo =
+    searchInput.value
+        .toLowerCase()
+        .trim();
+
+let encontrou = false;
+
+produtos.forEach(produto => {
+
+    const nome =
+        produto.dataset.name
+            .toLowerCase();
+
+    if (
+        nome.includes(termo)
+    ) {
+
+        produto.style.display = "";
+
+        encontrou = true;
+
+    } else {
+
+        produto.style.display = "none";
+
+    }
+
+});
+
+noResults.style.display =
+    encontrou ? "none" : "block";
+
+
+});
 
 // =============================
 // FINALIZAR COMPRA
 // =============================
 
-function finalizarCompra() {
+document
+.getElementById("checkout")
+.addEventListener("click", () => {
 
     if (carrinho.length === 0) {
 
-        alert("Seu carrinho está vazio.");
+        alert(
+            "Seu carrinho está vazio."
+        );
 
         return;
     }
 
     alert(
         "Obrigado pela compra! " +
-        "Esta é uma demonstração do checkout."
+        "Esta é uma demonstração " +
+        "do checkout."
     );
-}
+
+});
 
 
 // =============================
 // NEWSLETTER
 // =============================
 
-function inscrever(event) {
+newsletterForm.addEventListener(
+"submit",
+event => {
 
     event.preventDefault();
 
-    const email = document.getElementById("email").value;
+    const email =
+        emailInput.value.trim();
 
-    document.getElementById("mensagem").textContent =
-        `Obrigado! ${email} foi cadastrado com sucesso.`;
+    if (!email) {
+        return;
+    }
 
-    document.getElementById("email").value = "";
+    alert(
+        `Obrigado! ${email} foi cadastrado com sucesso.`
+    );
+
+    emailInput.value = "";
+
 }
 
+
+);
 
 // =============================
 // INICIALIZAÇÃO
