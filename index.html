@@ -1,945 +1,375 @@
-/* =========================
-   CONFIGURAÇÕES GERAIS
-========================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: "Montserrat", sans-serif;
-    color: #171717;
-    background: #f9f8f5;
-}
-
-img {
-    width: 100%;
-    display: block;
-}
-
-button,
-input {
-    font-family: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-.header {
-    height: 80px;
-    padding: 0 6%;
-    background: #f9f8f5;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-    border-bottom: 1px solid #e8e5df;
-}
-
-.logo {
-    font-family: "Playfair Display", serif;
-    font-size: 30px;
-    letter-spacing: 5px;
-    font-weight: 600;
-}
-
-.nav {
-    display: flex;
-    gap: 35px;
-}
-
-.nav a {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: 0.3s;
-}
-
-.nav a:hover {
-    color: #8d735d;
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.search-button,
-.cart-button,
-.menu-button {
-    border: none;
-    background: transparent;
-    font-size: 20px;
-}
-
-.cart-button {
-    position: relative;
-}
-
-#cartCount {
-    position: absolute;
-
-    top: -9px;
-    right: -10px;
-
-    width: 18px;
-    height: 18px;
-
-    border-radius: 50%;
-
-    background: #171717;
-    color: white;
-
-    font-size: 10px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.menu-button {
-    display: none;
-}
-
-
-/* =========================
-   SEARCH
-========================= */
-
-.search-container {
-    max-height: 0;
-    overflow: hidden;
-
-    transition: 0.4s;
-
-    background: #fff;
-}
-
-.search-container.active {
-    max-height: 100px;
-    padding: 20px 6%;
-}
-
-.search-container input {
-    width: 100%;
-
-    padding: 14px 20px;
-
-    border: 1px solid #ddd;
-
-    outline: none;
-
-    font-size: 14px;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-    min-height: 720px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 80px 8%;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(20, 18, 16, 0.75),
-            rgba(20, 18, 16, 0.15)
-        ),
-        url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85");
-
-    background-size: cover;
-    background-position: center;
-}
-
-.hero-content {
-    color: white;
-    max-width: 650px;
-}
-
-.subtitle {
-    font-size: 12px;
-    letter-spacing: 3px;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-.hero h1 {
-    font-family: "Playfair Display", serif;
-    font-size: clamp(55px, 8vw, 100px);
-    line-height: 0.95;
-    font-weight: 500;
-    margin-bottom: 30px;
-}
-
-.hero h1 span {
-    font-style: italic;
-}
-
-.hero p:not(.subtitle) {
-    font-size: 16px;
-    line-height: 1.8;
-    max-width: 480px;
-    margin-bottom: 35px;
-}
-
-
-/* =========================
-   BOTÕES
-========================= */
-
-.button {
-    display: inline-block;
-
-    padding: 16px 30px;
-
-    background: white;
-    color: #171717;
-
-    font-size: 12px;
-    font-weight: 600;
-
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
-    transition: 0.3s;
-}
-
-.button:hover {
-    background: #b69a7e;
-    color: white;
-}
-
-.button-light {
-    background: white;
-}
-
-
-/* =========================
-   CATEGORIAS
-========================= */
-
-.categories {
-    padding: 100px 6% 50px;
-    text-align: center;
-}
-
-.section-title p {
-    color: #a08367;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 12px;
-}
-
-.section-title h2 {
-    font-family: "Playfair Display", serif;
-    font-size: 45px;
-    font-weight: 500;
-}
-
-.category-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-
-    margin-top: 40px;
-}
-
-.category {
-    border: 1px solid #d8d4cd;
-    background: transparent;
-
-    padding: 12px 25px;
-
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
-    transition: 0.3s;
-}
-
-.category:hover,
-.category.active {
-    background: #171717;
-    color: white;
-    border-color: #171717;
-}
-
-
-/* =========================
-   PRODUTOS
-========================= */
-
-.products-section {
-    padding: 50px 6% 120px;
-}
-
-.products-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 50px 25px;
-
-    margin-top: 60px;
-}
-
-.product-image {
-    position: relative;
-    overflow: hidden;
-    background: #eee;
-}
-
-.product-image img {
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-
-    transition: transform 0.6s;
-}
-
-.product:hover .product-image img {
-    transform: scale(1.04);
-}
-
-.product-tag {
-    position: absolute;
-
-    top: 15px;
-    left: 15px;
-
-    background: white;
-
-    padding: 7px 12px;
-
-    font-size: 9px;
-
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.quick-add {
-    position: absolute;
-
-    bottom: 0;
-    left: 0;
-
-    width: 100%;
-
-    padding: 16px;
-
-    border: none;
-
-    background: rgba(23, 23, 23, 0.92);
-    color: white;
-
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
-    transform: translateY(100%);
-
-    transition: 0.3s;
-}
-
-.product:hover .quick-add {
-    transform: translateY(0);
-}
-
-.product-info {
-    padding-top: 18px;
-}
-
-.product-info h3 {
-    font-family: "Playfair Display", serif;
-    font-size: 21px;
-    font-weight: 500;
-}
-
-.product-info p {
-    color: #777;
-
-    font-size: 12px;
-
-    margin: 7px 0 12px;
-}
-
-.product-info strong {
-    font-size: 14px;
-}
-
-.no-results {
-    display: none;
-
-    text-align: center;
-
-    margin-top: 50px;
-
-    color: #777;
-}
-
-
-/* =========================
-   BANNER
-========================= */
-
-.banner {
-    min-height: 550px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 80px 8%;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            rgba(30, 25, 20, 0.55),
-            rgba(30, 25, 20, 0.55)
-        ),
-        url("https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1800&q=85");
-
-    background-size: cover;
-    background-position: center;
-}
-
-.banner-content {
-    max-width: 600px;
-}
-
-.banner-content > p {
-    font-size: 11px;
-    letter-spacing: 3px;
-    margin-bottom: 20px;
-}
-
-.banner h2 {
-    font-family: "Playfair Display", serif;
-
-    font-size: clamp(45px, 6vw, 75px);
-
-    line-height: 1.05;
-
-    font-weight: 500;
-
-    margin-bottom: 35px;
-}
-
-
-/* =========================
-   SOBRE
-========================= */
-
-.about {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    align-items: center;
-
-    gap: 80px;
-
-    padding: 120px 8%;
-}
-
-.about-image img {
-    height: 600px;
-    object-fit: cover;
-}
-
-.about-content {
-    max-width: 500px;
-}
-
-.about-content h2 {
-    font-family: "Playfair Display", serif;
-
-    font-size: 50px;
-
-    line-height: 1.1;
-
-    font-weight: 500;
-
-    margin-bottom: 30px;
-}
-
-.about-content > p:not(.subtitle) {
-    color: #666;
-
-    line-height: 1.9;
-
-    font-size: 14px;
-
-    margin-bottom: 30px;
-}
-
-.text-link {
-    font-size: 12px;
-
-    font-weight: 600;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-
-    border-bottom: 1px solid #171717;
-
-    padding-bottom: 5px;
-}
-
-
-/* =========================
-   NEWSLETTER
-========================= */
-
-.newsletter {
-    background: #e8e0d5;
-
-    padding: 80px 8%;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 50px;
-}
-
-.newsletter h2 {
-    font-family: "Playfair Display", serif;
-
-    font-size: 45px;
-
-    font-weight: 500;
-}
-
-.newsletter form {
-    display: flex;
-
-    width: 500px;
-
-    max-width: 100%;
-}
-
-.newsletter input {
-    flex: 1;
-
-    border: none;
-
-    background: white;
-
-    padding: 17px;
-
-    outline: none;
-}
-
-.newsletter button {
-    border: none;
-
-    background: #171717;
-
-    color: white;
-
-    padding: 0 25px;
-
-    text-transform: uppercase;
-
-    font-size: 10px;
-
-    letter-spacing: 1px;
-}
-
-
-/* =========================
-   CARRINHO
-========================= */
-
-.cart-overlay {
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(0, 0, 0, 0.45);
-
-    z-index: 1998;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition: 0.3s;
-}
-
-.cart-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.cart {
-    position: fixed;
-
-    top: 0;
-    right: 0;
-
-    width: 420px;
-    max-width: 90%;
-
-    height: 100vh;
-
-    background: #fff;
-
-    z-index: 1999;
-
-    transform: translateX(100%);
-
-    transition: 0.4s;
-
-    display: flex;
-    flex-direction: column;
-}
-
-.cart.active {
-    transform: translateX(0);
-}
-
-.cart-header {
-    padding: 25px;
-
-    border-bottom: 1px solid #eee;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cart-header h2 {
-    font-family: "Playfair Display", serif;
-    font-weight: 500;
-}
-
-.cart-header button {
-    border: none;
-    background: none;
-
-    font-size: 30px;
-}
-
-.cart-items {
-    flex: 1;
-
-    overflow-y: auto;
-
-    padding: 25px;
-}
-
-.empty-cart {
-    color: #777;
-    text-align: center;
-
-    margin-top: 50px;
-}
-
-.cart-item {
-    display: flex;
-
-    justify-content: space-between;
-
-    padding: 15px 0;
-
-    border-bottom: 1px solid #eee;
-}
-
-.cart-item-info h4 {
-    font-size: 13px;
-    margin-bottom: 5px;
-}
-
-.cart-item-info p {
-    font-size: 12px;
-    color: #777;
-}
-
-.remove-item {
-    border: none;
-
-    background: none;
-
-    color: #a33;
-
-    font-size: 12px;
-}
-
-.cart-footer {
-    padding: 25px;
-
-    border-top: 1px solid #eee;
-}
-
-.cart-total {
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 20px;
-
-    font-size: 14px;
-}
-
-.checkout {
-    width: 100%;
-
-    border: none;
-
-    background: #171717;
-
-    color: white;
-
-    padding: 17px;
-
-    text-transform: uppercase;
-
-    font-size: 11px;
-
-    letter-spacing: 1px;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer {
-    background: #171717;
-
-    color: white;
-
-    padding: 60px 6%;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 30px;
-}
-
-.footer-logo {
-    font-family: "Playfair Display", serif;
-
-    font-size: 30px;
-
-    letter-spacing: 5px;
-}
-
-.footer p {
-    color: #888;
-
-    font-size: 11px;
-}
-
-.socials {
-    display: flex;
-
-    gap: 20px;
-}
-
-.socials a {
-    font-size: 11px;
-
-    color: #bbb;
-}
-
-
-/* =========================
-   RESPONSIVIDADE
-========================= */
-
-@media (max-width: 900px) {
-
-    .nav {
-        position: absolute;
-
-        top: 80px;
-        left: 0;
-
-        width: 100%;
-
-        background: #f9f8f5;
-
-        flex-direction: column;
-
-        align-items: center;
-
-        padding: 25px;
-
-        gap: 20px;
-
-        transform: translateY(-150%);
-
-        transition: 0.4s;
-    }
-
-    .nav.active {
-        transform: translateY(0);
-    }
-
-    .menu-button {
-        display: block;
-    }
-
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .about {
-        grid-template-columns: 1fr;
-
-        gap: 50px;
-    }
-
-    .about-image img {
-        height: 500px;
-    }
-
-    .newsletter {
-        flex-direction: column;
-
-        align-items: flex-start;
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    .header {
-        height: 70px;
-    }
-
-    .nav {
-        top: 70px;
-    }
-
-    .logo {
-        font-size: 24px;
-    }
-
-    .hero {
-        min-height: 650px;
-
-        padding: 50px 7%;
-    }
-
-    .hero h1 {
-        font-size: 60px;
-    }
-
-    .categories {
-        padding-top: 70px;
-    }
-
-    .section-title h2 {
-        font-size: 36px;
-    }
-
-    .category-buttons {
-        flex-wrap: wrap;
-    }
-
-    .products-section {
-        padding-left: 5%;
-        padding-right: 5%;
-    }
-
-    .products-grid {
-        grid-template-columns: 1fr 1fr;
-
-        gap: 35px 12px;
-    }
-
-    .product-info h3 {
-        font-size: 17px;
-    }
-
-    .product-info p {
-        font-size: 10px;
-    }
-
-    .quick-add {
-        transform: translateY(0);
-
-        font-size: 9px;
-
-        padding: 12px;
-    }
-
-    .banner {
-        min-height: 500px;
-    }
-
-    .about {
-        padding: 80px 7%;
-    }
-
-    .about-image img {
-        height: 400px;
-    }
-
-    .about-content h2 {
-        font-size: 40px;
-    }
-
-    .newsletter {
-        padding: 60px 7%;
-    }
-
-    .newsletter h2 {
-        font-size: 38px;
-    }
-
-    .newsletter form {
-        width: 100%;
-    }
-
-    .footer {
-        flex-direction: column;
-
-        text-align: center;
-    }
-
-}
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Moda funcional: estilo, conforto e praticidade para o dia a dia.">
+  <title>VIVA — Moda Funcional</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container nav">
+
+      <a href="#" class="logo">VIVA<span>.</span></a>
+
+      <nav class="menu" id="menu">
+        <a href="#inicio">Início</a>
+        <a href="#colecao">Coleção</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Pesquisar">
+          🔍
+        </button>
+
+        <button class="cart-btn" id="cartBtn" aria-label="Carrinho">
+          🛍️ <span id="cartCount">0</span>
+        </button>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+          ☰
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="container hero-content">
+
+        <div class="hero-text">
+          <span class="eyebrow">MODA PARA A VIDA REAL</span>
+
+          <h1>
+            Estilo que
+            <span>acompanha você.</span>
+          </h1>
+
+          <p>
+            Roupas versáteis, confortáveis e funcionais para quem
+            quer se vestir bem sem abrir mão da praticidade.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#colecao" class="btn btn-primary">
+              Explorar coleção
+            </a>
+
+            <a href="#sobre" class="btn btn-secondary">
+              Conheça a VIVA
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <div class="image-placeholder">
+            <span>VIVA</span>
+            <small>FUNCTIONAL FASHION</small>
+          </div>
+
+          <div class="floating-card">
+            <strong>01</strong>
+            <span>Conforto<br>em movimento</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BENEFÍCIOS -->
+    <section class="benefits">
+      <div class="container benefits-grid">
+
+        <div class="benefit">
+          <span>✦</span>
+          <div>
+            <h3>Versátil</h3>
+            <p>Peças que funcionam em diferentes ocasiões.</p>
+          </div>
+        </div>
+
+        <div class="benefit">
+          <span>◈</span>
+          <div>
+            <h3>Confortável</h3>
+            <p>Materiais escolhidos para acompanhar sua rotina.</p>
+          </div>
+        </div>
+
+        <div class="benefit">
+          <span>♧</span>
+          <div>
+            <h3>Consciente</h3>
+            <p>Menos excessos, mais peças que fazem sentido.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COLEÇÃO -->
+    <section class="collection" id="colecao">
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">NOVA COLEÇÃO</span>
+            <h2>Funcional por natureza.</h2>
+          </div>
+
+          <p>
+            Design minimalista, materiais confortáveis e detalhes
+            pensados para facilitar o seu dia.
+          </p>
+        </div>
+
+        <div class="products">
+
+          <article class="product-card">
+            <div class="product-image image-1">
+              <span class="product-tag">NOVO</span>
+              <button class="favorite" aria-label="Favoritar">♡</button>
+            </div>
+
+            <div class="product-info">
+              <div>
+                <h3>Jaqueta Flow</h3>
+                <p>Leve • Impermeável • Unissex</p>
+              </div>
+              <strong>R$ 389</strong>
+            </div>
+
+            <button
+              class="add-cart"
+              data-product="Jaqueta Flow"
+              data-price="389"
+            >
+              Adicionar ao carrinho
+            </button>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image image-2">
+              <span class="product-tag">BEST SELLER</span>
+              <button class="favorite" aria-label="Favoritar">♡</button>
+            </div>
+
+            <div class="product-info">
+              <div>
+                <h3>Calça Move</h3>
+                <p>Flexível • Bolsos funcionais</p>
+              </div>
+              <strong>R$ 279</strong>
+            </div>
+
+            <button
+              class="add-cart"
+              data-product="Calça Move"
+              data-price="279"
+            >
+              Adicionar ao carrinho
+            </button>
+          </article>
+
+          <article class="product-card">
+            <div class="product-image image-3">
+              <span class="product-tag">ESSENCIAL</span>
+              <button class="favorite" aria-label="Favoritar">♡</button>
+            </div>
+
+            <div class="product-info">
+              <div>
+                <h3>Overshirt Urban</h3>
+                <p>Algodão • Bolsos amplos</p>
+              </div>
+              <strong>R$ 249</strong>
+            </div>
+
+            <button
+              class="add-cart"
+              data-product="Overshirt Urban"
+              data-price="249"
+            >
+              Adicionar ao carrinho
+            </button>
+          </article>
+
+        </div>
+
+        <div class="center">
+          <button class="btn btn-outline" id="loadMore">
+            Ver mais peças
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="about" id="sobre">
+      <div class="container about-grid">
+
+        <div class="about-image">
+          <div class="about-image-inner">
+            <span>LESS</span>
+            <strong>BUT<br>BETTER</strong>
+          </div>
+        </div>
+
+        <div class="about-text">
+          <span class="eyebrow">NOSSA FILOSOFIA</span>
+
+          <h2>
+            Menos complicação.
+            <span>Mais possibilidades.</span>
+          </h2>
+
+          <p>
+            A VIVA nasceu para repensar a relação entre roupa e rotina.
+            Criamos peças que transitam entre trabalho, viagens,
+            momentos de lazer e movimento.
+          </p>
+
+          <p>
+            Cada detalhe tem uma função: tecidos confortáveis,
+            bolsos inteligentes, modelagens versáteis e uma estética
+            que não depende de tendências passageiras.
+          </p>
+
+          <a href="#contato" class="text-link">
+            Fale com a gente →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter" id="contato">
+      <div class="container newsletter-content">
+
+        <div>
+          <span class="eyebrow">FIQUE POR DENTRO</span>
+          <h2>Novidades sem excesso.</h2>
+          <p>
+            Receba lançamentos, dicas de estilo e conteúdos da VIVA.
+          </p>
+        </div>
+
+        <form id="newsletterForm" class="newsletter-form">
+          <input
+            type="email"
+            id="email"
+            placeholder="Seu melhor e-mail"
+            required
+          >
+          <button type="submit" class="btn btn-primary">
+            Quero receber
+          </button>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+
+      <div>
+        <a href="#" class="logo">VIVA<span>.</span></a>
+        <p>Moda funcional para uma vida em movimento.</p>
+      </div>
+
+      <div>
+        <h4>Explorar</h4>
+        <a href="#inicio">Início</a>
+        <a href="#colecao">Coleção</a>
+        <a href="#sobre">Sobre nós</a>
+      </div>
+
+      <div>
+        <h4>Atendimento</h4>
+        <a href="#">Trocas e devoluções</a>
+        <a href="#">Envio</a>
+        <a href="#">FAQ</a>
+      </div>
+
+      <div>
+        <h4>Redes sociais</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Pinterest</a>
+        <a href="#">TikTok</a>
+      </div>
+
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© 2026 VIVA. Todos os direitos reservados.</span>
+      <span>Feito para viver.</span>
+    </div>
+  </footer>
+
+  <!-- MODAL DE BUSCA -->
+  <div class="search-modal" id="searchModal">
+    <div class="search-box">
+      <button class="close-search" id="closeSearch">×</button>
+
+      <span class="eyebrow">PESQUISAR</span>
+      <h2>O que você procura?</h2>
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Digite uma peça..."
+      >
+
+      <div id="searchResult"></div>
+    </div>
+  </div>
+
+  <!-- CARRINHO -->
+  <aside class="cart" id="cart">
+    <div class="cart-header">
+      <h2>Seu carrinho</h2>
+      <button id="closeCart">×</button>
+    </div>
+
+    <div id="cartItems" class="cart-items">
+      <p class="empty-cart">Seu carrinho está vazio.</p>
+    </div>
+
+    <div class="cart-footer">
+      <div>
+        <span>Total</span>
+        <strong id="cartTotal">R$ 0</strong>
+      </div>
+
+      <button class="btn btn-primary checkout">
+        Finalizar compra
+      </button>
+    </div>
+  </aside>
+
+  <div class="overlay" id="overlay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
