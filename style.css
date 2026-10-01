@@ -911,7 +911,7 @@ a {
   position: fixed;
   inset: 0;
 
-  background: rgba(20, 20, 18, 0.65);
+  background: rgba(20, 20, 18, 0.72);
 
   display: flex;
   align-items: center;
@@ -922,7 +922,9 @@ a {
   opacity: 0;
   visibility: hidden;
 
-  transition: 0.3s ease;
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
 
   z-index: 9999;
 }
@@ -933,75 +935,98 @@ a {
 }
 
 
+/* CAIXA */
+
 .checkout-box {
   width: min(600px, 100%);
-
-  max-height: 90vh;
+  max-height: 92vh;
 
   overflow-y: auto;
 
-  background: #fff;
+  background: var(--cream);
 
   padding: 40px;
 
   position: relative;
 
-  border-radius: 4px;
+  border-radius: 3px;
 
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.2);
+    0 25px 80px rgba(0, 0, 0, .25);
 }
 
+
+/* BOTÃO FECHAR */
 
 .close-checkout {
   position: absolute;
 
-  top: 15px;
+  top: 12px;
   right: 18px;
 
-  border: none;
+  width: 40px;
+  height: 40px;
+
+  border: 0;
 
   background: transparent;
 
-  font-size: 32px;
+  font-size: 30px;
+
+  line-height: 1;
 
   cursor: pointer;
 
-  color: #222;
+  color: var(--black);
+
+  transition: color .2s;
 }
 
+.close-checkout:hover {
+  color: var(--brown);
+}
+
+
+/* TÍTULO */
 
 .checkout-box h2 {
-  margin: 8px 0 5px;
+  margin: 5px 0 8px;
 
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-display);
 
-  font-size: 32px;
+  font-size: 36px;
+
+  line-height: 1.1;
+
+  font-weight: 500;
 }
-
 
 .checkout-description {
-  color: #777;
+  color: var(--gray);
 
-  margin-bottom: 25px;
+  margin-bottom: 28px;
+
+  font-size: 14px;
 }
 
+
+/* CAMPOS */
 
 .form-group {
-  margin-bottom: 18px;
+  margin-bottom: 17px;
 }
-
 
 .form-group label {
   display: block;
 
   margin-bottom: 7px;
 
-  font-size: 14px;
+  font-size: 12px;
 
-  font-weight: 600;
+  font-weight: 700;
+
+  color: var(--black);
 }
-
 
 .form-group input,
 .form-group select,
@@ -1010,33 +1035,47 @@ a {
 
   padding: 13px 14px;
 
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
 
-  border-radius: 3px;
+  border-radius: 2px;
 
-  background: #fff;
+  background: var(--white);
 
-  font-family: inherit;
+  color: var(--black);
 
-  font-size: 15px;
+  font-family: var(--font-main);
+
+  font-size: 14px;
 
   outline: none;
 
-  transition: border-color 0.2s;
+  transition:
+    border-color .2s,
+    box-shadow .2s;
 }
 
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #999;
+}
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #222;
-}
+  border-color: var(--brown);
 
+  box-shadow:
+    0 0 0 2px rgba(139, 114, 88, .08);
+}
 
 .form-group textarea {
   resize: vertical;
+
+  min-height: 100px;
 }
 
+
+/* DUAS COLUNAS */
 
 .form-row {
   display: grid;
@@ -1047,52 +1086,96 @@ a {
 }
 
 
+/* BOTÃO ENVIAR */
+
 .checkout-submit {
   width: 100%;
 
-  border: none;
+  min-height: 52px;
 
-  cursor: pointer;
+  border: 0;
 
   margin-top: 8px;
-}
 
+  cursor: pointer;
+}
 
 .checkout-submit:disabled {
-  opacity: 0.6;
+  opacity: .55;
 
-  cursor: not-allowed;
+  cursor: wait;
 }
 
 
+/* MENSAGEM */
+
 .checkout-status {
+  min-height: 20px;
+
   text-align: center;
 
   margin-top: 15px;
 
-  font-size: 14px;
+  font-size: 13px;
 }
-
 
 .checkout-status.success {
   color: #238636;
 }
 
-
 .checkout-status.error {
-  color: #c62828;
+  color: #b42318;
 }
 
 
+/* SCROLL DO FORMULÁRIO */
+
+.checkout-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.checkout-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.checkout-box::-webkit-scrollbar-thumb {
+  background: var(--beige);
+
+  border-radius: 10px;
+}
+
+
+/* CELULAR */
+
 @media (max-width: 600px) {
 
+  .checkout-modal {
+    padding: 10px;
+    align-items: flex-start;
+  }
+
   .checkout-box {
-    padding: 30px 20px;
+    width: 100%;
+
+    max-height: 96vh;
+
+    margin-top: 10px;
+
+    padding: 30px 20px 25px;
+  }
+
+  .checkout-box h2 {
+    font-size: 30px;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+
     gap: 0;
+  }
+
+  .checkout-submit {
+    min-height: 54px;
   }
 
 }

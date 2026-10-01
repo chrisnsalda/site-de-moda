@@ -5,15 +5,17 @@
 const menuToggle = document.getElementById("menuToggle");
 const menu = document.getElementById("menu");
 
-menuToggle.addEventListener("click", () => {
-  menu.classList.toggle("active");
-});
-
-document.querySelectorAll(".menu a").forEach(link => {
-  link.addEventListener("click", () => {
-    menu.classList.remove("active");
+if (menuToggle && menu) {
+  menuToggle.addEventListener("click", () => {
+    menu.classList.toggle("active");
   });
-});
+
+  document.querySelectorAll(".menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      menu.classList.remove("active");
+    });
+  });
+}
 
 
 // ================================
@@ -29,20 +31,23 @@ const cartItems = document.getElementById("cartItems");
 const cartCount = document.getElementById("cartCount");
 const cartTotal = document.getElementById("cartTotal");
 
-// Botão finalizar compra
-const checkoutButton = document.querySelector(".checkout");
-
 let cartProducts = [];
 
 
-// Abrir carrinho
+// ================================
+// ABRIR CARRINHO
+// ================================
+
 function openCart() {
   cart.classList.add("active");
   overlay.classList.add("active");
 }
 
 
-// Fechar carrinho
+// ================================
+// FECHAR CARRINHO
+// ================================
+
 function closeCartPanel() {
   cart.classList.remove("active");
   overlay.classList.remove("active");
@@ -73,6 +78,7 @@ document.querySelectorAll(".add-cart").forEach(button => {
     updateCart();
 
     openCart();
+
   });
 
 });
@@ -86,7 +92,9 @@ function updateCart() {
 
   cartCount.textContent = cartProducts.length;
 
-  // Carrinho vazio
+
+  // CARRINHO VAZIO
+
   if (cartProducts.length === 0) {
 
     cartItems.innerHTML = `
@@ -95,17 +103,19 @@ function updateCart() {
       </p>
     `;
 
-    cartTotal.textContent = "R$ 0";
+    cartTotal.textContent = "R$ 0,00";
 
     return;
   }
 
 
-  // Limpa os itens anteriores
+  // LIMPAR CARRINHO
+
   cartItems.innerHTML = "";
 
 
-  // Cria os produtos
+  // MOSTRAR PRODUTOS
+
   cartProducts.forEach((item, index) => {
 
     const element = document.createElement("div");
@@ -115,8 +125,9 @@ function updateCart() {
     element.innerHTML = `
       <div>
         <h4>${item.product}</h4>
+
         <span>
-          R$ ${item.price.toFixed(2).replace(".", ",")}
+          ${formatCurrency(item.price)}
         </span>
       </div>
 
@@ -130,21 +141,23 @@ function updateCart() {
     `;
 
     cartItems.appendChild(element);
+
   });
 
 
-  // Calcula o total
+  // CALCULAR TOTAL
+
   const total = cartProducts.reduce(
     (sum, item) => sum + item.price,
     0
   );
 
 
-  cartTotal.textContent =
-    `R$ ${total.toFixed(2).replace(".", ",")}`;
+  cartTotal.textContent = formatCurrency(total);
 
 
-  // Botões de remover
+  // REMOVER PRODUTO
+
   document.querySelectorAll(".remove-item").forEach(button => {
 
     button.addEventListener("click", () => {
@@ -154,14 +167,30 @@ function updateCart() {
       cartProducts.splice(index, 1);
 
       updateCart();
+
     });
 
   });
+
 }
 
 
 // ================================
-// CHECKOUT POR E-MAIL
+// FORMATAR MOEDA
+// ================================
+
+function formatCurrency(value) {
+
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+
+}
+
+
+// ================================
+// CHECKOUT
 // ================================
 
 const checkoutButton =
@@ -186,8 +215,13 @@ const orderTotal =
   document.getElementById("orderTotal");
 
 
-// Abrir checkout
+// ================================
+// ABRIR CHECKOUT
+// ================================
+
 checkoutButton.addEventListener("click", () => {
+
+  // Verifica se há produtos
 
   if (cartProducts.length === 0) {
 
@@ -199,45 +233,58 @@ checkoutButton.addEventListener("click", () => {
   }
 
 
-  // Produtos
+  // PRODUTOS
+
   const productsText = cartProducts
     .map((item, index) => {
 
-      return `${index + 1}. ${item.product} — R$ ${item.price
-        .toFixed(2)
-        .replace(".", ",")}`;
+      return `${index + 1}. ${item.product} — ${formatCurrency(item.price)}`;
 
     })
     .join("\n");
 
 
-  // Total
+  // TOTAL
+
   const total = cartProducts.reduce(
     (sum, item) => sum + item.price,
     0
   );
 
 
-  const totalFormatted =
-    total.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL"
-    });
+  // Preencher campos escondidos
 
-
-  // Coloca os dados nos campos escondidos
   orderProducts.value = productsText;
 
-  orderTotal.value = totalFormatted;
+  orderTotal.value = formatCurrency(total);
 
 
-  // Abre formulário
+  // Limpar mensagens anteriores
+
+  checkoutStatus.textContent = "";
+
+  checkoutStatus.classList.remove(
+    "success",
+    "error"
+  );
+
+
+  // Fechar carrinho
+
+  closeCartPanel();
+
+
+  // Abrir checkout
+
   checkoutModal.classList.add("active");
 
 });
 
 
-// Fechar checkout
+// ================================
+// FECHAR CHECKOUT
+// ================================
+
 closeCheckout.addEventListener("click", () => {
 
   checkoutModal.classList.remove("active");
@@ -245,7 +292,10 @@ closeCheckout.addEventListener("click", () => {
 });
 
 
-// Fechar clicando fora
+// ================================
+// FECHAR CLICANDO FORA
+// ================================
+
 checkoutModal.addEventListener("click", event => {
 
   if (event.target === checkoutModal) {
@@ -258,128 +308,182 @@ checkoutModal.addEventListener("click", event => {
 
 
 // ================================
-// ENVIAR PEDIDO
+// ENVIAR PEDIDO POR E-MAIL
 // ================================
 
-checkoutForm.addEventListener("submit", async event => {
+checkoutForm.addEventListener(
+  "submit",
+  async event => {
 
-  event.preventDefault();
-
-
-  if (cartProducts.length === 0) {
-
-    alert("Seu carrinho está vazio.");
-
-    return;
-  }
+    event.preventDefault();
 
 
-  const submitButton =
-    checkoutForm.querySelector(
-      ".checkout-submit"
-    );
+    // Verificar carrinho
 
+    if (cartProducts.length === 0) {
 
-  submitButton.disabled = true;
+      alert("Seu carrinho está vazio.");
 
-  submitButton.textContent =
-    "Enviando pedido...";
-
-
-  checkoutStatus.textContent = "";
-
-
-  // FormSubmit AJAX
-  const formData =
-    new FormData(checkoutForm);
-
-
-  try {
-
-    const response = await fetch(
-      "https://formsubmit.co/ajax/sylvain.chrisnalda@escola.pr.gov.br",
-      {
-        method: "POST",
-
-        headers: {
-          "Accept": "application/json"
-        },
-
-        body: formData
-      }
-    );
-
-
-    const result = await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        result.message ||
-        "Não foi possível enviar o pedido."
-      );
-
+      return;
     }
 
 
-    // SUCESSO
-    checkoutStatus.textContent =
-      "Pedido enviado com sucesso! Obrigado pela compra. 🎉";
+    // Botão
 
-    checkoutStatus.classList.add("success");
+    const submitButton =
+      checkoutForm.querySelector(
+        ".checkout-submit"
+      );
 
 
-    alert(
-      "Pedido enviado com sucesso! 🎉\n\n" +
-      "Você receberá a confirmação por e-mail."
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+      "Enviando pedido...";
+
+
+    checkoutStatus.textContent = "";
+
+    checkoutStatus.classList.remove(
+      "success",
+      "error"
     );
 
 
-    // Limpa carrinho
-    cartProducts = [];
+    // Atualizar produtos antes do envio
 
-    updateCart();
+    const productsText = cartProducts
+      .map((item, index) => {
 
+        return `${index + 1}. ${item.product} — ${formatCurrency(item.price)}`;
 
-    // Limpa formulário
-    checkoutForm.reset();
-
-
-    // Fecha checkout
-    setTimeout(() => {
-
-      checkoutModal.classList.remove("active");
-
-      checkoutStatus.textContent = "";
-
-      checkoutStatus.classList.remove("success");
-
-    }, 1800);
+      })
+      .join("\n");
 
 
-  } catch (error) {
-
-    console.error(error);
-
-
-    checkoutStatus.textContent =
-      "Não foi possível enviar o pedido. Tente novamente.";
-
-    checkoutStatus.classList.add("error");
+    const total = cartProducts.reduce(
+      (sum, item) => sum + item.price,
+      0
+    );
 
 
-  } finally {
+    orderProducts.value = productsText;
 
-    submitButton.disabled = false;
+    orderTotal.value = formatCurrency(total);
 
-    submitButton.textContent =
-      "Enviar pedido";
+
+    // Criar dados do formulário
+
+    const formData =
+      new FormData(checkoutForm);
+
+
+    try {
+
+      const response = await fetch(
+        "https://formsubmit.co/ajax/sylvain.chrisnalda@escola.pr.gov.br",
+        {
+          method: "POST",
+
+          headers: {
+            Accept: "application/json"
+          },
+
+          body: formData
+        }
+      );
+
+
+      const result =
+        await response.json();
+
+
+      // Verificar resposta
+
+      if (!response.ok) {
+
+        throw new Error(
+          result.message ||
+          "Não foi possível enviar o pedido."
+        );
+
+      }
+
+
+      // ================================
+      // SUCESSO
+      // ================================
+
+      checkoutStatus.textContent =
+        "Pedido enviado com sucesso! 🎉";
+
+      checkoutStatus.classList.add(
+        "success"
+      );
+
+
+      alert(
+        "Pedido enviado com sucesso! 🎉\n\n" +
+        "O pedido foi encaminhado para a VIVA."
+      );
+
+
+      // Limpar carrinho
+
+      cartProducts = [];
+
+      updateCart();
+
+
+      // Limpar formulário
+
+      checkoutForm.reset();
+
+
+      // Fechar checkout
+
+      setTimeout(() => {
+
+        checkoutModal.classList.remove(
+          "active"
+        );
+
+        checkoutStatus.textContent = "";
+
+        checkoutStatus.classList.remove(
+          "success"
+        );
+
+      }, 1800);
+
+
+    } catch (error) {
+
+      console.error(
+        "Erro ao enviar pedido:",
+        error
+      );
+
+
+      checkoutStatus.textContent =
+        "Não foi possível enviar o pedido. Verifique sua conexão e tente novamente.";
+
+      checkoutStatus.classList.add(
+        "error"
+      );
+
+
+    } finally {
+
+      submitButton.disabled = false;
+
+      submitButton.textContent =
+        "Enviar pedido";
+
+    }
 
   }
-
-});
-
+);
 
 
 // ================================
@@ -406,11 +510,20 @@ document.querySelectorAll(".favorite").forEach(button => {
 // BUSCA
 // ================================
 
-const searchBtn = document.getElementById("searchBtn");
-const searchModal = document.getElementById("searchModal");
-const closeSearch = document.getElementById("closeSearch");
-const searchInput = document.getElementById("searchInput");
-const searchResult = document.getElementById("searchResult");
+const searchBtn =
+  document.getElementById("searchBtn");
+
+const searchModal =
+  document.getElementById("searchModal");
+
+const closeSearch =
+  document.getElementById("closeSearch");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const searchResult =
+  document.getElementById("searchResult");
 
 
 searchBtn.addEventListener("click", () => {
@@ -418,66 +531,86 @@ searchBtn.addEventListener("click", () => {
   searchModal.classList.add("active");
 
   setTimeout(() => {
+
     searchInput.focus();
+
   }, 100);
 
 });
 
 
 closeSearch.addEventListener("click", () => {
+
   searchModal.classList.remove("active");
-});
-
-
-searchModal.addEventListener("click", event => {
-
-  if (event.target === searchModal) {
-    searchModal.classList.remove("active");
-  }
 
 });
 
 
-searchInput.addEventListener("input", () => {
+searchModal.addEventListener(
+  "click",
+  event => {
 
-  const query = searchInput.value.toLowerCase().trim();
+    if (event.target === searchModal) {
 
+      searchModal.classList.remove(
+        "active"
+      );
 
-  if (!query) {
+    }
 
-    searchResult.textContent = "";
-
-    return;
   }
+);
 
 
-  const products = [
-    "Jaqueta Flow",
-    "Calça Move",
-    "Overshirt Urban"
-  ];
+searchInput.addEventListener(
+  "input",
+  () => {
+
+    const query =
+      searchInput.value
+        .toLowerCase()
+        .trim();
 
 
-  const results = products.filter(product =>
-    product.toLowerCase().includes(query)
-  );
+    if (!query) {
+
+      searchResult.textContent = "";
+
+      return;
+    }
 
 
-  if (results.length === 0) {
+    const products = [
+      "Jaqueta Flow",
+      "Calça Move",
+      "Overshirt Urban"
+    ];
 
-    searchResult.textContent =
-      "Nenhuma peça encontrada.";
 
-    return;
+    const results =
+      products.filter(product =>
+        product
+          .toLowerCase()
+          .includes(query)
+      );
+
+
+    if (results.length === 0) {
+
+      searchResult.textContent =
+        "Nenhuma peça encontrada.";
+
+      return;
+    }
+
+
+    searchResult.innerHTML = `
+      <strong>Encontramos:</strong>
+      ${results.join(", ")}
+    `;
+
   }
-
-
-  searchResult.innerHTML = `
-    <strong>Encontramos:</strong>
-    ${results.join(", ")}
-  `;
-
-});
+);
 
 
 // ================================
@@ -485,29 +618,36 @@ searchInput.addEventListener("input", () => {
 // ================================
 
 const newsletterForm =
-  document.getElementById("newsletterForm");
-
-
-newsletterForm.addEventListener("submit", event => {
-
-  event.preventDefault();
-
-
-  const email =
-    document.getElementById("email").value;
-
-
-  if (!email) return;
-
-
-  alert(
-    "Obrigado! Seu e-mail foi cadastrado."
+  document.getElementById(
+    "newsletterForm"
   );
 
 
-  newsletterForm.reset();
+newsletterForm.addEventListener(
+  "submit",
+  event => {
 
-});
+    event.preventDefault();
+
+
+    const email =
+      document.getElementById(
+        "email"
+      ).value;
+
+
+    if (!email) return;
+
+
+    alert(
+      "Obrigado! Seu e-mail foi cadastrado."
+    );
+
+
+    newsletterForm.reset();
+
+  }
+);
 
 
 // ================================
@@ -518,35 +658,49 @@ const loadMore =
   document.getElementById("loadMore");
 
 
-loadMore.addEventListener("click", () => {
+loadMore.addEventListener(
+  "click",
+  () => {
 
-  loadMore.textContent = "Em breve...";
-
-
-  setTimeout(() => {
-
-    loadMore.textContent = "Ver mais peças";
-
-  }, 1800);
-
-});
+    loadMore.textContent =
+      "Em breve...";
 
 
-// ================================
-// ESC - FECHAR JANELAS
-// ================================
+    setTimeout(() => {
 
-document.addEventListener("keydown", event => {
+      loadMore.textContent =
+        "Ver mais peças";
 
-  if (event.key === "Escape") {
-
-    searchModal.classList.remove("active");
-
-    closeCartPanel();
+    }, 1800);
 
   }
+);
 
-});
+
+// ================================
+// ESC
+// ================================
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "Escape") {
+
+      searchModal.classList.remove(
+        "active"
+      );
+
+      closeCartPanel();
+
+      checkoutModal.classList.remove(
+        "active"
+      );
+
+    }
+
+  }
+);
 
 
 // ================================
