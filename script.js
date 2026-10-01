@@ -161,71 +161,225 @@ function updateCart() {
 
 
 // ================================
-// FINALIZAR COMPRA
+// CHECKOUT POR E-MAIL
 // ================================
 
+const checkoutButton =
+  document.querySelector(".checkout");
+
+const checkoutModal =
+  document.getElementById("checkoutModal");
+
+const closeCheckout =
+  document.getElementById("closeCheckout");
+
+const checkoutForm =
+  document.getElementById("checkoutForm");
+
+const checkoutStatus =
+  document.getElementById("checkoutStatus");
+
+const orderProducts =
+  document.getElementById("orderProducts");
+
+const orderTotal =
+  document.getElementById("orderTotal");
+
+
+// Abrir checkout
 checkoutButton.addEventListener("click", () => {
 
-  // Verifica se o carrinho está vazio
   if (cartProducts.length === 0) {
 
-    alert("Seu carrinho está vazio. Adicione uma peça antes de finalizar.");
+    alert(
+      "Seu carrinho está vazio. Adicione uma peça antes de finalizar."
+    );
 
     return;
   }
 
 
-  // Calcula o total
+  // Produtos
+  const productsText = cartProducts
+    .map((item, index) => {
+
+      return `${index + 1}. ${item.product} — R$ ${item.price
+        .toFixed(2)
+        .replace(".", ",")}`;
+
+    })
+    .join("\n");
+
+
+  // Total
   const total = cartProducts.reduce(
     (sum, item) => sum + item.price,
     0
   );
 
 
-  const totalFormatado =
+  const totalFormatted =
     total.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL"
     });
 
 
-  // Lista os produtos
-  const produtos = cartProducts
-    .map(item => `• ${item.product}`)
-    .join("\n");
+  // Coloca os dados nos campos escondidos
+  orderProducts.value = productsText;
+
+  orderTotal.value = totalFormatted;
 
 
-  // Confirma a compra
-  const confirmar = confirm(
-    `Resumo do pedido:\n\n` +
-    `${produtos}\n\n` +
-    `Total: ${totalFormatado}\n\n` +
-    `Deseja finalizar a compra?`
-  );
+  // Abre formulário
+  checkoutModal.classList.add("active");
+
+});
 
 
-  if (!confirmar) {
+// Fechar checkout
+closeCheckout.addEventListener("click", () => {
+
+  checkoutModal.classList.remove("active");
+
+});
+
+
+// Fechar clicando fora
+checkoutModal.addEventListener("click", event => {
+
+  if (event.target === checkoutModal) {
+
+    checkoutModal.classList.remove("active");
+
+  }
+
+});
+
+
+// ================================
+// ENVIAR PEDIDO
+// ================================
+
+checkoutForm.addEventListener("submit", async event => {
+
+  event.preventDefault();
+
+
+  if (cartProducts.length === 0) {
+
+    alert("Seu carrinho está vazio.");
+
     return;
   }
 
 
-  // Compra concluída
-  alert(
-    `Compra finalizada com sucesso! 🎉\n\n` +
-    `Total do pedido: ${totalFormatado}\n\n` +
-    `Obrigado por comprar na VIVA.`
-  );
+  const submitButton =
+    checkoutForm.querySelector(
+      ".checkout-submit"
+    );
 
 
-  // Limpa o carrinho
-  cartProducts = [];
+  submitButton.disabled = true;
 
-  updateCart();
+  submitButton.textContent =
+    "Enviando pedido...";
 
-  // Fecha o carrinho
-  closeCartPanel();
+
+  checkoutStatus.textContent = "";
+
+
+  // FormSubmit AJAX
+  const formData =
+    new FormData(checkoutForm);
+
+
+  try {
+
+    const response = await fetch(
+      "https://formsubmit.co/ajax/sylvain.chrisnalda@escola.pr.gov.br",
+      {
+        method: "POST",
+
+        headers: {
+          "Accept": "application/json"
+        },
+
+        body: formData
+      }
+    );
+
+
+    const result = await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        result.message ||
+        "Não foi possível enviar o pedido."
+      );
+
+    }
+
+
+    // SUCESSO
+    checkoutStatus.textContent =
+      "Pedido enviado com sucesso! Obrigado pela compra. 🎉";
+
+    checkoutStatus.classList.add("success");
+
+
+    alert(
+      "Pedido enviado com sucesso! 🎉\n\n" +
+      "Você receberá a confirmação por e-mail."
+    );
+
+
+    // Limpa carrinho
+    cartProducts = [];
+
+    updateCart();
+
+
+    // Limpa formulário
+    checkoutForm.reset();
+
+
+    // Fecha checkout
+    setTimeout(() => {
+
+      checkoutModal.classList.remove("active");
+
+      checkoutStatus.textContent = "";
+
+      checkoutStatus.classList.remove("success");
+
+    }, 1800);
+
+
+  } catch (error) {
+
+    console.error(error);
+
+
+    checkoutStatus.textContent =
+      "Não foi possível enviar o pedido. Tente novamente.";
+
+    checkoutStatus.classList.add("error");
+
+
+  } finally {
+
+    submitButton.disabled = false;
+
+    submitButton.textContent =
+      "Enviar pedido";
+
+  }
 
 });
+
 
 
 // ================================
