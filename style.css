@@ -360,13 +360,17 @@ a {
 }
 
 .product-card {
-  min-width: 0;
-}
-
-.product-image {
-  height: 450px;
+ .product-image {
   position: relative;
   overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 }
 
 .image-1 {
